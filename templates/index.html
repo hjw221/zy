@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中药学习题练习</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid">
+        <h1 class="text-center my-4">中药学习题练习</h1>
+        
+        <!-- 控制面板 -->
+        <div class="card mb-3">
+            <div class="card-header">
+                <h5 class="card-title">控制面板</h5>
+            </div>
+            <div class="card-body">
+                <div class="row g-3 align-items-center">
+                    <div class="col-md-4">
+                        <label for="chapter-select" class="form-label">选择章节:</label>
+                        <select id="chapter-select" class="form-select">
+                            <option value="all">所有章节</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">题目进度:</label>
+                        <div id="progress-label" class="form-control-plaintext">已答题目: 0 / 总题目: 0</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="random-mode">
+                            <label class="form-check-label" for="random-mode">随机出题</label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <button id="reset-btn" class="btn btn-warning">重置已答题目</button>
+                    </div>
+                    <div class="col-md-2">
+                        <button id="load-path-btn" class="btn btn-secondary">从路径加载</button>
+                        <p class="text-muted mt-2 small">文档路径: {{ config.DOCS_PATH }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 题目显示区域 -->
+        <div class="card mb-3">
+            <div class="card-header">
+                <h5 class="card-title">题目</h5>
+            </div>
+            <div class="card-body">
+                <div id="question-text" class="question-text"></div>
+            </div>
+        </div>
+
+        <!-- 选择题选项区域 -->
+        <div id="options-container" class="card mb-3 d-none">
+            <div class="card-header">
+                <h5 class="card-title">选择题选项</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <button class="btn btn-outline-primary option-btn" data-option="A">A</button>
+                    <button class="btn btn-outline-primary option-btn" data-option="B">B</button>
+                    <button class="btn btn-outline-primary option-btn" data-option="C">C</button>
+                    <button class="btn btn-outline-primary option-btn" data-option="D">D</button>
+                    <button class="btn btn-outline-primary option-btn" data-option="E">E</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 答案输入区域 -->
+        <div class="card mb-3">
+            <div class="card-header">
+                <h5 class="card-title">你的答案</h5>
+            </div>
+            <div class="card-body">
+                <textarea id="answer-input" class="form-control" rows="3"></textarea>
+            </div>
+        </div>
+
+        <!-- 按钮区域 -->
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <button id="prev-btn" class="btn btn-secondary">上一题</button>
+                    <button id="show-answer-btn" class="btn btn-info">显示答案</button>
+                    <button id="next-btn" class="btn btn-primary">下一题</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 答案对比区域 -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">答案对比</h5>
+            </div>
+            <div class="card-body">
+                <div id="answer-text" class="answer-text"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 文件上传模态框 -->
+    <div class="modal fade" id="uploadModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">上传题目文件</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="upload-form">
+                        <div class="mb-3">
+                            <label class="form-label">选择题目文件</label>
+                            <div class="btn-group w-100" role="group">
+                                <input class="form-control" type="file" id="file-input" accept=".docx" style="display:none">
+                                <button type="button" class="btn btn-outline-primary" onclick="document.getElementById('file-input').click()">
+                                    选择单个文件
+                                </button>
+                                <input class="form-control" type="file" id="folder-input" webkitdirectory directory multiple style="display:none">
+                                <button type="button" class="btn btn-outline-primary" onclick="document.getElementById('folder-input').click()">
+                                    选择整个文件夹
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="upload-btn">上传</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

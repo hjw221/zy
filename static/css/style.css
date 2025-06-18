@@ -1,0 +1,109 @@
+body {
+    font-family: 'Microsoft YaHei', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.container-fluid {
+    max-width: 1200px;
+    padding: 0 15px;
+}
+
+.card {
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background-color: #6c757d;
+    color: white;
+    border-radius: 8px 8px 0 0 !important;
+}
+
+.question-text {
+    font-size: 1.1rem;
+    white-space: pre-line;
+    line-height: 1.6;
+    padding: 10px;
+}
+
+.answer-text {
+    font-size: 1rem;
+    white-space: pre-line;
+    line-height: 1.6;
+    padding: 10px;
+    background-color: #f1f8ff;
+    border-radius: 4px;
+}
+
+#answer-input {
+    font-size: 1rem;
+    resize: vertical;
+}
+
+.option-btn {
+    width: 18%;
+    font-weight: bold;
+}
+
+.option-btn:hover {
+    transform: translateY(-2px);
+}
+
+.option-btn:active {
+    transform: translateY(0);
+}
+
+#progress-label {
+    font-weight: bold;
+}
+
+.btn {
+    transition: all 0.2s;
+}
+
+.btn:disabled {
+    opacity: 0.65;
+}
+
+/* 正确答案样式 */
+.correct-answer {
+    color: #28a745;
+    font-weight: bold;
+}
+
+/* 错误答案样式 */
+.wrong-answer {
+    color: #dc3545;
+    text-decoration: line-through;
+}
+
+/* 答案分析样式 */
+.answer-analysis {
+    border-left: 4px solid #17a2b8;
+    padding-left: 10px;
+    margin-top: 10px;
+    background-color: #f8f9fa;
+}
+
+.answer-analysis strong {
+    color: #17a2b8;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .option-btn {
+        width: 16%;
+        padding: 5px;
+        font-size: 0.9rem;
+    }
+    
+    .question-text, .answer-text {
+        font-size: 1rem;
+    }
+    
+    #answer-input {
+        font-size: 0.95rem;
+    }
+}
